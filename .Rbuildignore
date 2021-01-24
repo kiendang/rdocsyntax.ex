@@ -2,14 +2,18 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^\.Rhistory$
-misc\.r
+misc\.r$
 
 ^srcjs$
 ^index\.html$
 
-^\.package\.json$
+^package\.json$
 ^node_modules$
 ^yarn\.lock$
-^\.webpack\.config\.json$
+^webpack\.config\.js$
 ^\.babel\.js$
-~\.yo-rc\.json$
+^\.yo-rc\.json$
+
+^npm-debug\.log.*
+^yarn-debug\.log.*
+^yarn-error\.log.*
