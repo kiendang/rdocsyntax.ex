@@ -19,5 +19,8 @@
     "webpack-cli": "^4.4.0",
     "webpack-dev-server": "^3.11.2"
   },
-  "description": "My webpack project"
+  "description": "rdocsyntax",
+  "dependencies": {
+    "ace-builds": "^1.4.12"
+  }
 }

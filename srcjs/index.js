@@ -1,11 +1,21 @@
-console.log('Hello World from your main file!');
-const frame = document.getElementById("rdocsyntax_frame")
+import 'ace-builds/src-min-noconflict/ace'
+import 'ace-builds/src-min-noconflict/mode-r'
+import 'ace-builds/src-min-noconflict/ext-static_highlight'
 
-frame.addEventListener("load", function () {
-  const h2 = this.contentDocument.getElementsByTagName("h2")
-  console.log(h2)
 
-  for (const el of h2) {
-    el.textContent = el.textContent.toUpperCase()
-  }
+const frame = document.getElementById('rdocsyntax_frame')
+
+const highlight = ace.require('ace/ext/static_highlight')
+
+frame.addEventListener('load', function () {
+  const code = this.contentDocument.querySelectorAll('pre')
+
+  Array.apply(null, code).forEach(function (codeEl) {
+    highlight(codeEl, {
+      mode: 'ace/mode/r',
+      theme: null,
+      showGutter: false,
+      trim: true
+    }, function (_highlighted) { })
+  })
 })

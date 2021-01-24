@@ -30,7 +30,7 @@ module.exports = {
   plugins: [new webpack.ProgressPlugin(), new HtmlWebpackPlugin({
     template: './srcjs/index.html'
   }), new ScriptExtHtmlWebpackPlugin({
-    inline: [/\.js$/],
+    inline: [/\.js$/]
   })],
 
   module: {
