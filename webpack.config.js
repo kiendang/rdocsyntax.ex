@@ -5,6 +5,7 @@ const webpack = require('webpack');
 
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 
 
 
@@ -28,6 +29,8 @@ module.exports = {
 
   plugins: [new webpack.ProgressPlugin(), new HtmlWebpackPlugin({
     template: './srcjs/index.html'
+  }), new ScriptExtHtmlWebpackPlugin({
+    inline: [/\.js$/],
   })],
 
   module: {

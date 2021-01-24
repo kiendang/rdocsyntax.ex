@@ -1,1 +1,1 @@
-console.log("Hello World from your main file!");
+console.log("Hello World from your main file!"),document.getElementById("rdocsyntax_frame").addEventListener("load",(function(){var e=contentDocument.getElementsByTagName("h2");for(var t in e)t.textContent=t.textContent.toUpperCase()}));
