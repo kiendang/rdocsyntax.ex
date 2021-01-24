@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+node_modules/
+.vscode/
+.DS_Store
+
+misc.r
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
