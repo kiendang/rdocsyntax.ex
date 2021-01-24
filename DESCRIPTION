@@ -5,8 +5,7 @@ Version: 0.1.0
 Authors@R: person("Trung Kien", "Dang", email = "mail@kien.ai", role = c("aut", "cre"))
 Description: An RStudio addin providing syntax highlighting for R code inside documentation.
 Imports:
-    rstudioapi,
-    highlight
+    rstudioapi
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
