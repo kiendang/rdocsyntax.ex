@@ -1,4 +1,4 @@
-#' Create a temp file preloaded with content and return the file path.
+# Create a temp file preloaded with content and return the file path.
 tempf <- function(content, ...) {
   tmp <- tempfile(...)
   cat(content, file = tmp)
@@ -6,15 +6,17 @@ tempf <- function(content, ...) {
 }
 
 
-#' Read a file into a string character.
-#' Similar to \code{readr::read_file}.
+# Read a file into a string character.
+# Similar to \code{readr::read_file}.
 read_text <- function(f) {
   readChar(f, file.info(f)$size)
 }
 
 
 rs <- function(...) {
-  get(paste(".rs", ..., sep = "."), envir = rstudioapi:::toolsEnv())
+  # this instead of rstudioapi:::toolsEnv to make CRAN check happy
+  env <- get("toolsEnv", asNamespace("rstudioapi"), inherits = FALSE)
+  get(paste(".rs", ..., sep = "."), envir = env())
 }
 
 

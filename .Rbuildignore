@@ -13,7 +13,7 @@ misc\.r$
 ^node_modules$
 ^yarn\.lock$
 ^webpack\.config\.js$
-^\.babel\.js$
+^\.babelrc$
 ^\.yo-rc\.json$
 
 ^npm-debug\.log.*
