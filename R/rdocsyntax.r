@@ -23,6 +23,8 @@ setup_handlers <- function() {
 }
 
 
+#' Enable syntax highlighting in R doc viewed with RStudio
+#'
 #' @export
 use_highlight_browser <- function() {
   if (rstudioapi::isAvailable() & rstudioapi::hasFun("viewer")) {
