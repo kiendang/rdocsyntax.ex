@@ -7,11 +7,8 @@ const highlight = ace.require("ace/ext/static_highlight")
 
 const frame = document.getElementById("rdocsyntax_frame")
 
-const getBody = e =>
-  e.currentTarget.contentDocument.querySelector("body")
-
 const highlightCode = e => {
-  const codeBlocks = e.currentTarget.contentDocument.querySelectorAll("pre")
+  const codeBlocks = e.querySelectorAll("pre")
 
   Array(...codeBlocks).forEach(codeBlock => {
     highlight(codeBlock, {
@@ -34,7 +31,7 @@ const rsthemeLink = () => {
 }
 
 const setRCSS = e => {
-  const links = e.currentTarget.contentDocument.querySelectorAll("head link")
+  const links = e.querySelectorAll("head link")
 
   Array(...links)
     .filter(node => node.getAttribute("href") === "R.css")
@@ -44,12 +41,23 @@ const setRCSS = e => {
 }
 
 const addRsthemeLink = e => {
-  const body = e.currentTarget.contentDocument.querySelector("body")
+  const body = e.querySelector("body")
   body.appendChild(rsthemeLink())
 }
 
+const removeIndentGuides = e => {
+  const body = e.querySelector("body")
+  const nodes = body.querySelectorAll(".ace_indent-guide")
+  Array(...nodes).forEach(node => {
+    node.classList.remove("ace_indent-guide")
+  })
+}
+
 frame.addEventListener("load", e => {
-  highlightCode(e)
-  setRCSS(e)
-  addRsthemeLink(e)
+  const d = e.currentTarget.contentDocument
+
+  highlightCode(d)
+  removeIndentGuides(d)
+  setRCSS(d)
+  addRsthemeLink(d)
 })

@@ -16,7 +16,7 @@ assets_handler <- function(endpoint, path, ...) {
 
 theme_handler <- function(endpoint, path, ...) {
   list(
-    file = system.file("www", "themes", "kr_theme.rstheme", package = packageName()),
+    file = get_all_themes()[rstudioapi::getThemeInfo()$editor],
     "content-type" = "text/css"
   )
 }
