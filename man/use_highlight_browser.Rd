@@ -2,10 +2,57 @@
 % Please edit documentation in R/rdocsyntax.r
 \name{use_highlight_browser}
 \alias{use_highlight_browser}
-\title{Enable syntax highlighting in R doc viewed with RStudio}
+\title{Enable syntax highlighting in R html doc}
 \usage{
-use_highlight_browser()
+use_highlight_browser(set_html_help_type = FALSE)
+}
+\arguments{
+\item{set_html_help_type}{Automatically set the \code{help_type} option to \code{html},
+i.e. \code{options(help_type = "html")}. Default is \code{FALSE}.}
+}
+\value{
+The original browser
 }
 \description{
-Enable syntax highlighting in R doc viewed with RStudio
+Enable syntax highlighting in R html doc
+}
+\details{
+R html docs are displayed by running the doc url through a browser function.
+The browser in use is stored in the \code{browser} option, \code{getOption("browser")}.
+This package works by creating a browser function that takes in the R doc html,
+applies syntax highlighting, then displays it using the previously set browser, or,
+in case RStudio is running, \code{rstudio::viewer}.
+}
+\examples{
+
+\dontrun{
+# minimal example, using RStudio
+# original R html doc without syntax highlighting
+?sapply
+# enable syntax highlighting
+use_syntax_highlight()
+?sapply
+}
+
+\dontrun{
+# this works if not using RStudio
+# set html doc, alternatively can use help(..., help_type = "html")
+options(help_type = "html")
+# original R html doc without syntax highlighting
+?sapply
+# enable syntax highlighting
+use_syntax_highlight()
+?sapply
+}
+
+\dontrun{
+# in case you want to be able switch off syntax highlighting,
+# i.e. revert to original state
+
+# store the original browser
+original_browser <- use_syntax_highlight()
+# revert to the original browser
+options(browser = original_browser)
+}
+
 }

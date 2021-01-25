@@ -22,3 +22,8 @@ endpoint_prefix <- function() {
 prepend_endpoint <- function(endpoint) {
   paste0(endpoint_prefix(), endpoint)
 }
+
+
+start_httpd <- function() {
+  try(suppressMessages(tools::startDynamicHelp(TRUE)), silent = TRUE)
+}

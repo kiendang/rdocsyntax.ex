@@ -2,5 +2,6 @@
 
 export(use_highlight_browser)
 importFrom(stats,setNames)
+importFrom(utils,browseURL)
 importFrom(utils,packageName)
 importFrom(whisker,whisker.render)
