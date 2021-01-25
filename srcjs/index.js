@@ -25,7 +25,7 @@ const rsthemeLink = () => {
   link.setAttribute("type", "text/css")
   link.setAttribute("rel", "stylesheet")
   link.setAttribute("id", "rstudio-acethemes-linkelement")
-  link.setAttribute("href", "/custom/rstheme")
+  link.setAttribute("href", "/custom/rdocsyntax-rstheme")
 
   return link
 }
@@ -36,7 +36,7 @@ const setRCSS = e => {
   Array(...links)
     .filter(node => node.getAttribute("href") === "R.css")
     .forEach(node => {
-      node.setAttribute("href", "/custom/assets/R.css")
+      node.setAttribute("href", "/custom/rdocsyntax-assets/R.css")
     })
 }
 

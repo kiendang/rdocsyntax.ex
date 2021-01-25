@@ -9,7 +9,9 @@ highlight_doc <- function(url) {
 
 
 highlight_viewer <- function(url) {
-  rstudioapi::viewer(httpd_url(sprintf("/custom/frame/%s", trimws(url))))
+  rstudioapi::viewer(
+    httpd_url(sprintf("/custom/%s/%s", prepend_endpoint("frame"), trimws(url)))
+  )
 }
 
 
