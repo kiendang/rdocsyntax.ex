@@ -2,7 +2,7 @@ Package: rdocsyntax
 Type: Package
 Title: RStudio addin for documentation syntax highlighting
 Version: 0.0.0.9000
-Authors@R: person("Trung Kien", "Dang", email = "mail@kien.ai", role = c("aut", "cre"))
+Authors@R: person("Trung Kien", "Dang", email = "mail@kien.ai", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-7562-6495"))
 Description: An RStudio addin providing syntax highlighting for R code inside documentation.
 Imports:
     rstudioapi,
