@@ -16,3 +16,32 @@ read_text <- function(f) {
 httpd_url <- function(path) {
   paste0("http://localhost:", tools::startDynamicHelp(NA), path)
 }
+
+
+rs <- function(...) {
+  get(paste(".rs", ..., sep = "."), envir = rstudioapi:::toolsEnv())
+}
+
+
+try_or_else <- function(exp, x) {
+  tryCatch(exp, error = function(e) x)
+}
+
+
+theme_dirs <- function() {
+  default <- system.file("www", "themes", package = packageName())
+  global <- try_or_else(rs("getThemeInstallDir")(TRUE), "")
+  local <- try_or_else(rs("getThemeInstallDir")(FALSE), "")
+
+  c(default, global, local)
+}
+
+
+httpd_handlers_env <- function() {
+  get(".httpd.handlers.env", asNamespace("tools"))
+}
+
+
+add_handler <- function(endpoint, handler, env = httpd_handlers_env()) {
+  env[[endpoint]] <- function(...) handler(endpoint, ...)
+}

@@ -7,6 +7,9 @@ const highlight = ace.require("ace/ext/static_highlight")
 
 const frame = document.getElementById("rdocsyntax_frame")
 
+const getBody = e =>
+  e.currentTarget.contentDocument.querySelector("body")
+
 const highlightCode = e => {
   const codeBlocks = e.currentTarget.contentDocument.querySelectorAll("pre")
 
@@ -25,8 +28,19 @@ const rsthemeLink = () => {
   link.setAttribute("type", "text/css")
   link.setAttribute("rel", "stylesheet")
   link.setAttribute("id", "rstudio-acethemes-linkelement")
+  link.setAttribute("href", "/custom/rstheme")
 
   return link
+}
+
+const setRCSS = e => {
+  const links = e.currentTarget.contentDocument.querySelectorAll("head link")
+
+  Array(...links)
+    .filter(node => node.getAttribute("href") === "R.css")
+    .forEach(node => {
+      node.setAttribute("href", "/custom/assets/R.css")
+    })
 }
 
 const addRsthemeLink = e => {
@@ -36,5 +50,6 @@ const addRsthemeLink = e => {
 
 frame.addEventListener("load", e => {
   highlightCode(e)
+  setRCSS(e)
   addRsthemeLink(e)
 })

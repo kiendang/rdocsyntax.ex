@@ -1,5 +1,5 @@
 highlight_doc <- function(url) {
-  base_html_file <- system.file("index.html", package = "rdocsyntax")
+  base_html_file <- system.file("index.html", package = packageName())
   base_html <- read_text(base_html_file)
 
   # use localhost so that this can be opened in the Viewer pane using rstudio::viewer
@@ -15,16 +15,10 @@ highlight_viewer <- function(url) {
 }
 
 
-doc_handler <- function(path, ...) {
-  url_regexp <- "^/custom/frame/+(.*)$"
-  url <- sub(url_regexp, "\\1", path)
-  list(file = highlight_doc(url))
-}
-
-
 setup_handlers <- function() {
-  env <- get(".httpd.handlers.env", asNamespace("tools"))
-  env[["frame"]] <- doc_handler
+  env <- httpd_handlers_env()
+  add_handler("frame", doc_handler, env)
+  add_handler("assets", assets_handler, env)
 }
 
 
