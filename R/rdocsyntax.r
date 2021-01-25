@@ -5,8 +5,6 @@ highlight_doc <- function(url) {
   # use localhost so that this can be opened in the Viewer pane using rstudio::viewer
   localhost_url <- sub("127.0.0.1", "localhost", url)
   html <- sub("%s", localhost_url, base_html)
-
-  tempf(html, fileext = ".html")
 }
 
 
@@ -19,6 +17,7 @@ setup_handlers <- function() {
   env <- httpd_handlers_env()
   add_handler("frame", doc_handler, env)
   add_handler("assets", assets_handler, env)
+  add_handler("rstheme", theme_handler, env)
 }
 
 
