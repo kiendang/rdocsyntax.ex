@@ -17,7 +17,7 @@ Syntax highlighting follows RStudio theme when running RStudio.
 
 *The following issues only apply to usage inside RStudio*
 
-  - *You might notice the highlighted doc is displayed inside RStudio Viewer pane instead of Help pane. This is a limitation. Thus things like forward, backward, ... unavailable (for now, maybe).*
+  - *You might notice the highlighted doc is displayed inside RStudio Viewer pane instead of Help pane. This is a limitation. Thus things like forward, backward, ... are unavailable (for now, maybe).*
   - *If you switch between light and dark themes, you have to restart RStudio. Switching from light to light, dark to dark theme works without restarting.*
 
 
