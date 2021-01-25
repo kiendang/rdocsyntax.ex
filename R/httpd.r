@@ -27,3 +27,8 @@ prepend_endpoint <- function(endpoint) {
 start_httpd <- function() {
   try(suppressMessages(tools::startDynamicHelp(TRUE)), silent = TRUE)
 }
+
+
+error_page <- function(msg) {
+  list(payload = paste0(HTMLheader("httpd error"), msg, "\n</body></html>"))
+}

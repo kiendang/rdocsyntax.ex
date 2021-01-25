@@ -9,8 +9,13 @@ assets_handler <- function(endpoint, path, ...) {
   regexp <- paste0("^/custom/", esp_regex(endpoint), "/+(.*)$")
   filename <- sub(regexp, "\\1", path)
   assets <- system.file("www", "assets", package = packageName())
-  file <- list.files(assets, pattern = filename, full.names = TRUE)[1]
-  list(file = file, "content-type" = mime::guess_type(file))
+  files <- list.files(assets, pattern = filename, full.names = TRUE)
+  if (length(files) <= 0) {
+    error_page(sprintf("asset %s not found", filename))
+  } else {
+    f <- files[1]
+    list(file = f, "content-type" = mime::guess_type(f))
+  }
 }
 
 
