@@ -6,7 +6,8 @@ Authors@R: person("Trung Kien", "Dang", email = "mail@kien.ai", role = c("aut", 
 Description: An RStudio addin providing syntax highlighting for R code inside documentation.
 Imports:
     rstudioapi,
-    mime
+    mime,
+    whisker
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

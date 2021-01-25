@@ -3,8 +3,8 @@ highlight_doc <- function(url) {
   base_html <- read_text(base_html_file)
 
   # use localhost so that this can be opened in the Viewer pane using rstudio::viewer
-  localhost_url <- sub("127.0.0.1", "localhost", url)
-  html <- sub("%s", localhost_url, base_html)
+  localhost_url <- sub(esp_regex("127.0.0.1"), "localhost", url)
+  whisker::whisker.render(base_html, list(url = localhost_url))
 }
 
 
