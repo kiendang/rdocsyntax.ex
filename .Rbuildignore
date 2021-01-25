@@ -4,6 +4,8 @@
 ^\.Rhistory$
 misc\.r$
 
+\.DS_Store$
+
 ^srcjs$
 ^index\.html$
 

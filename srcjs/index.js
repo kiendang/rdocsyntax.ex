@@ -3,19 +3,19 @@ import 'ace-builds/src-min-noconflict/mode-r'
 import 'ace-builds/src-min-noconflict/ext-static_highlight'
 
 
-const frame = document.getElementById('rdocsyntax_frame')
-
 const highlight = ace.require('ace/ext/static_highlight')
 
-frame.addEventListener('load', function () {
-  const code = this.contentDocument.querySelectorAll('pre')
+const frame = document.getElementById('rdocsyntax_frame')
 
-  Array.apply(null, code).forEach(function (codeEl) {
-    highlight(codeEl, {
+frame.addEventListener('load', e => {
+  const codeBlocks = e.currentTarget.contentDocument.querySelectorAll('pre')
+
+  Array(...codeBlocks).forEach(codeBlock => {
+    highlight(codeBlock, {
       mode: 'ace/mode/r',
       theme: null,
       showGutter: false,
       trim: true
-    }, function (_highlighted) { })
+    }, _highlighted => { })
   })
 })
