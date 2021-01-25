@@ -1,7 +1,7 @@
 doc_handler <- function(endpoint, path, ...) {
   regexp <- paste0("^/custom/", esp_regex(endpoint), "/+(.*)$")
   url <- sub(regexp, "\\1", path)
-  list(highlight_doc(url))
+  list(payload = highlight_doc(url))
 }
 
 
