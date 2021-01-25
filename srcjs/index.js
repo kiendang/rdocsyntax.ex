@@ -53,9 +53,17 @@ const removeIndentGuides = e => {
   })
 }
 
+const setMainTitle = e => {
+  const title = e.querySelector("head title")
+  const mainTitle = document.querySelector("title#rdocsyntax-main-title")
+
+  mainTitle.textContent = title.textContent
+}
+
 frame.addEventListener("load", e => {
   const d = e.currentTarget.contentDocument
 
+  setMainTitle(d)
   highlightCode(d)
   removeIndentGuides(d)
   setRCSS(d)
