@@ -11,3 +11,8 @@ tempf <- function(content, ...) {
 read_text <- function(f) {
   readChar(f, file.info(f)$size)
 }
+
+
+httpd_url <- function(path) {
+  paste0("http://localhost:", tools::startDynamicHelp(NA), path)
+}
