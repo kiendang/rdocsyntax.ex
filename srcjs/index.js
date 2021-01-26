@@ -83,15 +83,15 @@ const setOS = (e, info) => {
 
 
 const lightThemeClasses = [
-  "rstudio-theme-light-menus",
+  "rstudio-themes-light-menus",
   "rstudio-themes-default"
 ]
 
 const darkThemeClasses = [
   "editor_dark",
-  "rstudio-theme-dark",
-  "rstudio-theme-dark-menus",
-  "rstudio-theme-dark-grey"
+  "rstudio-themes-dark",
+  "rstudio-themes-dark-menus",
+  "rstudio-themes-dark-grey"
 ]
 
 const defaultThemeClasses = [...lightThemeClasses]
@@ -166,11 +166,13 @@ const yolo = f => {
 }
 
 
+const info = getInfo()
+
+const dark = isDarkPromise(info)
+
+
 frame.addEventListener("load", e => {
   const d = e.currentTarget.contentDocument
-
-  const info = getInfo()
-  const dark = isDarkPromise(info)
 
   Array(
     () => { setMainTitle(d) },
