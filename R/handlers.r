@@ -1,7 +1,7 @@
 doc_handler <- function(endpoint, path, ...) {
   regexp <- paste0("^/custom/", esp_regex(endpoint), "/+(.*)$")
   url <- sub(regexp, "\\1", path)
-  list(payload = highlight_doc(url))
+  list(payload = highlight_doc(url), "content-type" = "text/html")
 }
 
 
@@ -19,9 +19,14 @@ assets_handler <- function(endpoint, path, ...) {
 }
 
 
-theme_handler <- function(endpoint, path, ...) {
+theme_handler <- function(...) {
   list(
     file = get_all_themes()[get_current_theme()],
     "content-type" = "text/css"
   )
+}
+
+
+platform_handler <- function(...) {
+  list(payload = platform(), "content-type" = "text/plain")
 }

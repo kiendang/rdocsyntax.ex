@@ -20,16 +20,6 @@ const highlightCode = e => {
   })
 }
 
-const rsthemeLink = () => {
-  const link = document.createElement("link")
-  link.setAttribute("type", "text/css")
-  link.setAttribute("rel", "stylesheet")
-  link.setAttribute("id", "rstudio-acethemes-linkelement")
-  link.setAttribute("href", "/custom/rdocsyntax-rstheme")
-
-  return link
-}
-
 const setRCSS = e => {
   const links = e.querySelectorAll("head link")
 
@@ -38,19 +28,6 @@ const setRCSS = e => {
     .forEach(node => {
       node.setAttribute("href", "/custom/rdocsyntax-assets/R.css")
     })
-}
-
-const addRsthemeLink = e => {
-  const body = e.querySelector("body")
-  body.appendChild(rsthemeLink())
-}
-
-const removeIndentGuides = e => {
-  const body = e.querySelector("body")
-  const nodes = body.querySelectorAll(".ace_indent-guide")
-  Array(...nodes).forEach(node => {
-    node.classList.remove("ace_indent-guide")
-  })
 }
 
 const setMainTitle = e => {
@@ -68,11 +45,52 @@ const setBodyClasses = e => {
   bodyClasses.forEach(cls => body.classList.add(cls))
 }
 
+const platforms = ["macintosh", "windows", "linux"]
+const defaultPlatfrom = "linux"
+
+const setOS = e => {
+  const body = e.querySelector("body")
+
+  fetch(new Request("/custom/rdocsyntax-platform"))
+    .then(response => response.text())
+    .then(text => {
+      const trimmed = text.trim()
+      const platform = platforms.includes(trimmed) ? trimmed : defaultPlatfrom
+
+      body.classList.add(platform)
+    })
+    .catch(() => { body.classList.add(defaultPlatfrom) })
+}
+
+const rsthemeLink = () => {
+  const link = document.createElement("link")
+  link.setAttribute("type", "text/css")
+  link.setAttribute("rel", "stylesheet")
+  link.setAttribute("id", "rstudio-acethemes-linkelement")
+  link.setAttribute("href", "/custom/rdocsyntax-rstheme")
+
+  return link
+}
+
+const addRsthemeLink = e => {
+  const body = e.querySelector("body")
+  body.appendChild(rsthemeLink())
+}
+
+const removeIndentGuides = e => {
+  const body = e.querySelector("body")
+  const nodes = body.querySelectorAll(".ace_indent-guide")
+  Array(...nodes).forEach(node => {
+    node.classList.remove("ace_indent-guide")
+  })
+}
+
 frame.addEventListener("load", e => {
   const d = e.currentTarget.contentDocument
 
   setMainTitle(d)
   setBodyClasses(d)
+  setOS(d)
   highlightCode(d)
   removeIndentGuides(d)
   setRCSS(d)

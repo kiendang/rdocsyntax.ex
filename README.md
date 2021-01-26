@@ -13,7 +13,7 @@ Syntax highlighting follows RStudio theme when running RStudio, otherwise uses T
 *SOME CAVEATS*
 
   - *The package is still in very early stage so expect some roughness around the edges.*
-  - *It has only been tested on MacOS, but expected to work reasonably ok on Linux, Win.*
+  - *It has only been thoroughly tested on MacOS, though support for Windows, Linux is included.*
   - *You might notice the highlighted doc is displayed inside RStudio Viewer pane instead of Help pane. This is a limitation. Thus things like forward, backward, ... are unavailable (for now, maybe).*
 
 

@@ -28,3 +28,14 @@ try_or_else <- function(exp, x) {
 esp_regex <- function(x) {
   gsub("([.*+?^${}()|])", "\\\\\\1", x)
 }
+
+
+platform <- function() {
+  sysname <- tolower(trimws(Sys.info()["sysname"]))
+
+  if (grepl("^dar", sysname)) {
+    "macintosh"
+  } else if (grepl("^win", sysname)) {
+    "windows"
+  } else "linux"
+}

@@ -36,6 +36,7 @@ setup_handlers <- function() {
   add_handler("frame", doc_handler, env)
   add_handler("assets", assets_handler, env)
   add_handler("rstheme", theme_handler, env)
+  add_handler("platform", platform_handler, env)
 }
 
 
