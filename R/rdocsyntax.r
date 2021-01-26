@@ -1,5 +1,7 @@
 #' @importFrom stats setNames
 #' @importFrom utils browseURL packageName
+#' @importFrom jsonlite toJSON unbox
+#' @importFrom rlang %||%
 #' @importFrom whisker whisker.render
 
 
@@ -9,7 +11,11 @@ highlight_doc <- function(url) {
 
   # use localhost so that this can be opened in the Viewer pane using rstudio::viewer
   localhost_url <- sub(esp_regex("127.0.0.1"), "localhost", url)
-  whisker.render(base_html, list(url = localhost_url))
+  whisker.render(base_html, list(
+    url = localhost_url,
+    background = get_background(),
+    foreground = get_foreground()
+  ))
 }
 
 
@@ -36,7 +42,7 @@ setup_handlers <- function() {
   add_handler("frame", doc_handler, env)
   add_handler("assets", assets_handler, env)
   add_handler("rstheme", theme_handler, env)
-  add_handler("platform", platform_handler, env)
+  add_handler("info", info_handler, env)
 }
 
 

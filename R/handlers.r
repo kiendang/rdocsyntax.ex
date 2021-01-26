@@ -27,6 +27,11 @@ theme_handler <- function(...) {
 }
 
 
-platform_handler <- function(...) {
-  list(payload = platform(), "content-type" = "text/plain")
+info_handler <- function(...) {
+  payload <- list(
+    platform = unbox(platform()),
+    dark = unbox(is_dark_theme())
+  )
+
+  list(payload = toJSON(payload), "content-type" = "text/json")
 }

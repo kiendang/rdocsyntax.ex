@@ -7,6 +7,7 @@ const highlight = ace.require("ace/ext/static_highlight")
 
 const frame = document.getElementById("rdocsyntax_frame")
 
+
 const highlightCode = e => {
   const codeBlocks = e.querySelectorAll("pre")
 
@@ -20,6 +21,7 @@ const highlightCode = e => {
   })
 }
 
+
 const setRCSS = e => {
   const links = e.querySelectorAll("head link")
 
@@ -30,6 +32,7 @@ const setRCSS = e => {
     })
 }
 
+
 const setMainTitle = e => {
   const title = e.querySelector("head title")
   const mainTitle = document.querySelector("title#rdocsyntax-main-title")
@@ -37,7 +40,8 @@ const setMainTitle = e => {
   mainTitle.textContent = title.textContent
 }
 
-const bodyClasses = ["rstudio-themes-flat", "rstudio-themes-default", "ace_editor_theme"]
+
+const bodyClasses = ["rstudio-themes-flat", "ace_editor_theme"]
 
 const setBodyClasses = e => {
   const body = e.querySelector("body")
@@ -45,22 +49,73 @@ const setBodyClasses = e => {
   bodyClasses.forEach(cls => body.classList.add(cls))
 }
 
+
+const getInfo = () => (
+  fetch(new Request("/custom/rdocsyntax-info"))
+    .then(response => response.json())
+)
+
+
 const platforms = ["macintosh", "windows", "linux"]
+
 const defaultPlatfrom = "linux"
 
-const setOS = e => {
+const getOS = response => {
+  const platform = response.platform
+  if (!platform) {
+    return defaultPlatfrom
+  }
+
+  const trimmed = platform.trim()
+  return platforms.includes(trimmed) ? trimmed : defaultPlatfrom
+}
+
+const setOS = (e, info) => {
   const body = e.querySelector("body")
 
-  fetch(new Request("/custom/rdocsyntax-platform"))
-    .then(response => response.text())
-    .then(text => {
-      const trimmed = text.trim()
-      const platform = platforms.includes(trimmed) ? trimmed : defaultPlatfrom
-
-      body.classList.add(platform)
-    })
+  info
+    .then(getOS)
+    .then(platform => { body.classList.add(platform) })
     .catch(() => { body.classList.add(defaultPlatfrom) })
 }
+
+
+const lightThemeClasses = [
+  "rstudio-theme-light-menus",
+  "rstudio-themes-default"
+]
+
+const darkThemeClasses = [
+  "editor_dark",
+  "rstudio-theme-dark",
+  "rstudio-theme-dark-menus",
+  "rstudio-theme-dark-grey"
+]
+
+const defaultThemeClasses = [...lightThemeClasses]
+
+const darkLightThemeClasses = response => {
+  const dark = response.dark
+  if (!dark) {
+    return defaultThemeClasses
+  }
+
+  return dark ? darkThemeClasses : lightThemeClasses
+}
+
+const setDarkLightThemeClasses = (e, info) => {
+  const body = e.querySelector("body")
+
+  info
+    .then(darkLightThemeClasses)
+    .then(classes => {
+      classes.forEach(cls => { body.classList.add(cls) })
+    })
+    .catch(() => {
+      defaultThemeClasses.forEach(cls => { body.classList.add(cls) })
+    })
+}
+
 
 const rsthemeLink = () => {
   const link = document.createElement("link")
@@ -77,6 +132,7 @@ const addRsthemeLink = e => {
   body.appendChild(rsthemeLink())
 }
 
+
 const removeIndentGuides = e => {
   const body = e.querySelector("body")
   const nodes = body.querySelectorAll(".ace_indent-guide")
@@ -85,12 +141,16 @@ const removeIndentGuides = e => {
   })
 }
 
+
 frame.addEventListener("load", e => {
   const d = e.currentTarget.contentDocument
 
+  const info = getInfo()
+
   setMainTitle(d)
   setBodyClasses(d)
-  setOS(d)
+  setDarkLightThemeClasses(d, info)
+  setOS(d, info)
   highlightCode(d)
   removeIndentGuides(d)
   setRCSS(d)

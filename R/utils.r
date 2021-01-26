@@ -20,8 +20,8 @@ rs <- function(...) {
 }
 
 
-try_or_else <- function(exp, x) {
-  tryCatch(exp, error = function(e) x)
+try_or_else <- function(exp, default) {
+  tryCatch(exp, error = function(e) default) %||% default
 }
 
 

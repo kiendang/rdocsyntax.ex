@@ -33,3 +33,18 @@ get_all_themes <- function() {
 get_current_theme <- function() {
   try_or_else(rstudioapi::getThemeInfo()$editor, "Textmate (default)")
 }
+
+
+is_dark_theme <- function() {
+  dark <- try_or_else(rstudioapi::getThemeInfo()$dark, FALSE)
+}
+
+
+get_background <- function() {
+  try_or_else(rstudioapi::getThemeInfo()$background, "rgb(255, 255, 255)")
+}
+
+
+get_foreground <- function() {
+  try_or_else(rstudioapi::getThemeInfo()$foreground, "rgb(0, 0, 0)")
+}
