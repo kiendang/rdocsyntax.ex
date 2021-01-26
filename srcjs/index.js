@@ -2,6 +2,8 @@ import "ace-builds/src-min-noconflict/ace"
 import "ace-builds/src-min-noconflict/mode-r"
 import "ace-builds/src-min-noconflict/ext-static_highlight"
 
+import rstudioDarkStyles from "./rstudio-dark.txt.css"
+
 
 const highlight = ace.require("ace/ext/static_highlight")
 
@@ -94,19 +96,22 @@ const darkThemeClasses = [
 
 const defaultThemeClasses = [...lightThemeClasses]
 
-const darkLightThemeClasses = response => {
-  const dark = response.dark
-  if (!dark) {
-    return defaultThemeClasses
-  }
+const isDark = response => (
+  response.dark ?? false
+)
 
-  return dark ? darkThemeClasses : lightThemeClasses
-}
+const isDarkPromise = info => (
+  info.then(isDark)
+)
 
-const setDarkLightThemeClasses = (e, info) => {
+const darkLightThemeClasses = dark => (
+  dark ? darkThemeClasses : lightThemeClasses
+)
+
+const setDarkLightThemeClasses = (e, dark) => {
   const body = e.querySelector("body")
 
-  info
+  dark
     .then(darkLightThemeClasses)
     .then(classes => {
       classes.forEach(cls => { body.classList.add(cls) })
@@ -142,17 +147,40 @@ const removeIndentGuides = e => {
 }
 
 
+const addDarkThemeStyle = (e, dark) => {
+  dark.then(dark => {
+    if (dark) {
+      const head = e.querySelector("head")
+
+      const node = document.createElement("style")
+      node.textContent = rstudioDarkStyles
+
+      head.appendChild(node)
+    }
+  })
+}
+
+
+const yolo = f => {
+  try { f() } catch { }
+}
+
+
 frame.addEventListener("load", e => {
   const d = e.currentTarget.contentDocument
 
   const info = getInfo()
+  const dark = isDarkPromise(info)
 
-  setMainTitle(d)
-  setBodyClasses(d)
-  setDarkLightThemeClasses(d, info)
-  setOS(d, info)
-  highlightCode(d)
-  removeIndentGuides(d)
-  setRCSS(d)
-  addRsthemeLink(d)
+  Array(
+    () => { setMainTitle(d) },
+    () => { setBodyClasses(d) },
+    () => { addDarkThemeStyle(d, dark) },
+    () => { setDarkLightThemeClasses(d, dark) },
+    () => { setOS(d, info) },
+    () => { highlightCode(d) },
+    () => { removeIndentGuides(d) },
+    () => { setRCSS(d) },
+    () => { addRsthemeLink(d) }
+  ).forEach(yolo)
 })

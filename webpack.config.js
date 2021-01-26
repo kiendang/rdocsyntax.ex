@@ -38,6 +38,9 @@ module.exports = {
       test: /\.(js|jsx)$/,
       include: [path.resolve(__dirname, 'srcjs')],
       loader: 'babel-loader'
+    }, {
+      test: /\.txt\.css$/,
+      type: 'asset/source'
     }]
   },
 
