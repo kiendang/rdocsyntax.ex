@@ -35,7 +35,7 @@ rdocsyntax::use_highlight_browser()
 ```
 
 
-If using outside RStudio, set `help_type` to `html` to automatically display doc in HTML mode. Otherwise `?` syntax won't work, have to use `help(..., help_type = "html)` instead.
+If using outside RStudio, set `help_type` to `html` to automatically display doc in HTML mode. Otherwise `?` syntax won't work, use `help(..., help_type = "html")` instead.
 
 ```r
 options(help_type = "html")
