@@ -30,5 +30,5 @@ start_httpd <- function() {
 
 
 error_page <- function(msg) {
-  list(payload = paste0(HTMLheader("httpd error"), msg, "\n</body></html>"))
+  list(payload = paste0(tools::HTMLheader("httpd error"), msg, "\n</body></html>"))
 }

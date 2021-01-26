@@ -60,10 +60,19 @@ const setMainTitle = e => {
   mainTitle.textContent = title.textContent
 }
 
+const bodyClasses = ["rstudio-themes-flat", "rstudio-themes-default", "ace_editor_theme"]
+
+const setBodyClasses = e => {
+  const body = e.querySelector("body")
+
+  bodyClasses.forEach(cls => body.classList.add(cls))
+}
+
 frame.addEventListener("load", e => {
   const d = e.currentTarget.contentDocument
 
   setMainTitle(d)
+  setBodyClasses(d)
   highlightCode(d)
   removeIndentGuides(d)
   setRCSS(d)

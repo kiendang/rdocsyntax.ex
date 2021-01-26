@@ -5,7 +5,7 @@ Overview
 
 This package enables syntax highlighting for R HTML documentation.
 
-Syntax highlighting follows RStudio theme when running RStudio.
+Syntax highlighting follows RStudio theme when running RStudio, otherwise uses Textmate theme.
 
 <img src="screenshots/before.png" alt="before" width=650px/><img src="screenshots/after.png" alt="after" width=650px/>
 <!-- ![before](screenshots/before.png =50x) ![after](screenshots/after.png =50x) -->
@@ -13,12 +13,8 @@ Syntax highlighting follows RStudio theme when running RStudio.
 *SOME CAVEATS*
 
   - *The package is still in very early stage so expect some roughness around the edges.*
-  - *It has only been tested on MacOS.*
-
-*The following issues only apply to usage inside RStudio*
-
+  - *It has only been tested on MacOS, but expected to work reasonably ok on Linux, Win.*
   - *You might notice the highlighted doc is displayed inside RStudio Viewer pane instead of Help pane. This is a limitation. Thus things like forward, backward, ... are unavailable (for now, maybe).*
-  - *If you switch between light and dark themes, you have to restart RStudio. Switching from light to light, dark to dark theme works without restarting.*
 
 
 Getting Started
