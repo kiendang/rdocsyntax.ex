@@ -1,5 +1,45 @@
+httpd_origin <- function() {
+  paste0("http://localhost:", startDynamicHelp(NA))
+}
+
+
 httpd_url <- function(path) {
-  paste0("http://localhost:", tools::startDynamicHelp(NA), path)
+  paste0(httpd_origin(), path)
+}
+
+
+same_scheme <- function(x, y) {
+  x <- clean_s(x)
+  y <- clean_s(y)
+
+  if (is_nothing(x)) is_nothing(y)
+  else if (x %in% c("http", "https")) y %in% c("http", "https")
+  else x == y
+}
+
+
+same_host <- function(x, y) {
+  x <- clean_s(x)
+  y <- clean_s(y)
+
+  if (is_nothing(x)) is_nothing(y)
+  else if (x %in% c("localhost", "127.0.0.1")) y %in% c("localhost", "127.0.0.1")
+  else x == y
+}
+
+
+same_port <- function(x, y) {
+  x <- clean_s(x)
+  y <- clean_s(y)
+
+  compare_null(x, y)
+}
+
+
+same_origin <- function(x, y) {
+  same_scheme(x$scheme, y$scheme) &&
+    same_host(x$host, y$host) &&
+    same_port(x$port, y$port)
 }
 
 
@@ -25,10 +65,17 @@ prepend_endpoint <- function(endpoint) {
 
 
 start_httpd <- function() {
-  try(suppressMessages(tools::startDynamicHelp(TRUE)), silent = TRUE)
+  try(suppressMessages(startDynamicHelp(TRUE)), silent = TRUE)
 }
 
 
 error_page <- function(msg) {
   list(payload = paste0(tools::HTMLheader("httpd error"), msg, "\n</body></html>"))
+}
+
+
+browser_f <- function(br) {
+  if (is.function(br)) br else {
+    function(url) browseURL(url, browser = br)
+  }
 }

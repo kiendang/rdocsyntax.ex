@@ -6,6 +6,7 @@ Authors@R: person("Trung Kien", "Dang", email = "mail@kien.ai", role = c("aut", 
 Description: Provides syntax highlighting for R HTML documentation.
 Imports:
     rstudioapi,
+    httr,
     mime,
     rlang,
     jsonlite,

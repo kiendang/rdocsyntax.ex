@@ -39,3 +39,16 @@ platform <- function() {
     "windows"
   } else "linux"
 }
+
+
+is_nothing <- function(x) {
+  length(x) <= 0 || is.null(x) || is.na(x)
+}
+
+
+compare_null <- function(x, y) {
+  if (is_nothing(x)) is_nothing(y) else x == y
+}
+
+
+clean_s <- function(s) trimws(tolower(s))

@@ -1,6 +1,8 @@
 #' @importFrom stats setNames
 #' @importFrom utils browseURL packageName
+#' @importFrom tools startDynamicHelp
 #' @importFrom jsonlite toJSON unbox
+#' @importFrom httr parse_url
 #' @importFrom rlang %||%
 #' @importFrom whisker whisker.render
 
@@ -25,15 +27,17 @@ highlight_url <- function(url) {
 
 
 highlight_browser <- function(default) {
-  br <- if (rstudioapi::isAvailable() & rstudioapi::hasFun("viewer")) {
+  default_f <- browser_f(default)
+
+  local_browser <- if (rstudioapi::isAvailable() & rstudioapi::hasFun("viewer")) {
     rstudioapi::viewer
-  } else default
+  } else default_f
 
-  br_f <- if (is.function(br)) br else {
-    function(url) browseURL(url, browser = br)
+  function(url) {
+    if (same_origin(parse_url(url), parse_url(httpd_origin()))) {
+      local_browser(highlight_url(url))
+    } else default_f(url)
   }
-
-  function(url) br_f(highlight_url(url))
 }
 
 
