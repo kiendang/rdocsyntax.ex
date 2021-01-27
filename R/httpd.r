@@ -3,8 +3,8 @@ httpd_origin <- function() {
 }
 
 
-httpd_url <- function(path) {
-  paste0(httpd_origin(), path)
+httpd_url <- function(...) {
+  paste0(httpd_origin(), ...)
 }
 
 
