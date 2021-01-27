@@ -38,7 +38,7 @@ const setRCSS = e => {
   const links = [...e.querySelectorAll("head link")]
 
   links
-    .filter(node => node.getAttribute("href") === "R.css")
+    .filter(node => node.getAttribute("href").endsWith("R.css"))
     .forEach(node => {
       node.setAttribute("href", "/custom/rdocsyntax-assets/R.css")
     })
