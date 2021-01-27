@@ -31,7 +31,7 @@ devtools::install_github("kiendang/rdocsyntax")
 Enable syntax highlighting
 
 ```r
-rdocsyntax::use_highlight_browser()
+rdocsyntax::enable_html_doc_highlight()
 ```
 
 
@@ -58,7 +58,7 @@ Extras
 To enable switching off syntax highlighting, *i.e.* be able to revert to original state
 
 ```r
-original_browser <- rdocsyntax::use_highlight_browser()
+original_browser <- rdocsyntax::enable_html_doc_highlight()
 # ...
 # revert to original state
 getOptions(browser = original_browser)

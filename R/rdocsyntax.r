@@ -73,7 +73,7 @@ setup_handlers <- function() {
 #' # original R html doc without syntax highlighting
 #' ?sapply
 #' # enable syntax highlighting
-#' use_syntax_highlight()
+#' enable_html_doc_highlight()
 #' ?sapply
 #' }
 #'
@@ -84,7 +84,7 @@ setup_handlers <- function() {
 #' # original R html doc without syntax highlighting
 #' ?sapply
 #' # enable syntax highlighting
-#' use_syntax_highlight()
+#' enable_html_doc_highlight()
 #' ?sapply
 #' }
 #'
@@ -93,13 +93,13 @@ setup_handlers <- function() {
 #' # i.e. revert to original state
 #'
 #' # store the original browser
-#' original_browser <- use_syntax_highlight()
+#' original_browser <- enable_html_doc_highlight()
 #' # revert to the original browser
 #' options(browser = original_browser)
 #' }
 #'
 #' @export
-use_highlight_browser <- function(set_html_help_type = FALSE) {
+enable_html_doc_highlight <- function(set_html_help_type = FALSE) {
   setup_handlers()
   start_httpd()
 
