@@ -10,11 +10,21 @@ const highlight = ace.require("ace/ext/static_highlight")
 const frame = document.getElementById("rdocsyntax_frame")
 
 
-const highlightCode = e => {
-  const codeBlocks = e.querySelectorAll("pre")
+const singleLineNotRunRegex = /(?<=^[^\S\n\r]*##[^\S\n\r]+Not run:)[^\S\n\r]+/gm
 
-  Array(...codeBlocks).forEach(codeBlock => {
-    highlight(codeBlock, {
+const addLineBreakNotRun = s => s.replace(singleLineNotRunRegex, "\n")
+
+const getCodeBlocks = e => [...e.querySelectorAll("pre")]
+
+const handleSingleLineNotRun = codeBlocks => {
+  codeBlocks.forEach(code => {
+    code.textContent = addLineBreakNotRun(code.textContent)
+  })
+}
+
+const highlightCode = codeBlocks => {
+  codeBlocks.forEach(code => {
+    highlight(code, {
       mode: "ace/mode/r",
       theme: null,
       showGutter: false,
@@ -25,9 +35,9 @@ const highlightCode = e => {
 
 
 const setRCSS = e => {
-  const links = e.querySelectorAll("head link")
+  const links = [...e.querySelectorAll("head link")]
 
-  Array(...links)
+  links
     .filter(node => node.getAttribute("href") === "R.css")
     .forEach(node => {
       node.setAttribute("href", "/custom/rdocsyntax-assets/R.css")
@@ -141,6 +151,7 @@ const addRsthemeLink = e => {
 const removeIndentGuides = e => {
   const body = e.querySelector("body")
   const nodes = body.querySelectorAll(".ace_indent-guide")
+
   Array(...nodes).forEach(node => {
     node.classList.remove("ace_indent-guide")
   })
@@ -174,13 +185,16 @@ const dark = isDarkPromise(info)
 frame.addEventListener("load", e => {
   const d = e.currentTarget.contentDocument
 
+  const codeBlocks = getCodeBlocks(d)
+
   Array(
     () => { setMainTitle(d) },
     () => { setBodyClasses(d) },
     () => { addDarkThemeStyle(d, dark) },
     () => { setDarkLightThemeClasses(d, dark) },
     () => { setOS(d, info) },
-    () => { highlightCode(d) },
+    () => { handleSingleLineNotRun(codeBlocks) },
+    () => { highlightCode(codeBlocks) },
     () => { removeIndentGuides(d) },
     () => { setRCSS(d) },
     () => { addRsthemeLink(d) }
