@@ -1,5 +1,5 @@
 #' @importFrom stats setNames
-#' @importFrom utils browseURL packageName
+#' @importFrom utils browseURL packageName head
 #' @importFrom tools startDynamicHelp
 #' @importFrom jsonlite toJSON unbox
 #' @importFrom httr parse_url

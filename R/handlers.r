@@ -1,7 +1,10 @@
-doc_handler <- function(endpoint, path, ...) {
+doc_handler <- function(endpoint, path, query, ...) {
   regexp <- paste0("^/custom/", esp_regex(endpoint), "/+(.*)$")
   url <- sub(regexp, "\\1", path)
-  list(payload = highlight_doc(url), "content-type" = "text/html")
+  params <- process_query(query)
+  full_url <- paste0(url, params)
+
+  list(payload = highlight_doc(full_url), "content-type" = "text/html")
 }
 
 

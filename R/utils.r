@@ -52,3 +52,22 @@ compare_null <- function(x, y) {
 
 
 clean_s <- function(s) trimws(tolower(s))
+
+
+query_to_s <- function(query) {
+  params <- sapply(1:length(query), function(i) paste0(names(query[i]), "=", query[i]))
+  paste0("?", paste(params, collapse = "&"))
+}
+
+
+filter_view_pane_query <- function(query) {
+  vp_i <- which(names(query) == "viewer_pane")
+  if (length(vp_i > 0)) {
+    head(query, vp_i - 1)
+  } else query
+}
+
+
+process_query <- function(query) {
+  query_to_s(filter_view_pane_query(query))
+}
