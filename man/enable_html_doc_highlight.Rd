@@ -21,7 +21,7 @@ R html docs are displayed by running the doc url through a browser function.
 The browser in use is stored in the \code{browser} option, \code{getOption("browser")}.
 This package works by creating a browser function that takes in the R doc html,
 applies syntax highlighting, then displays it using the previously set browser, or,
-in case RStudio is running, \code{rstudio::viewer}.
+in case RStudio is running, \code{\link[rstudioapi]{viewer}}.
 }
 \examples{
 
@@ -55,4 +55,7 @@ original_browser <- enable_html_doc_highlight()
 options(browser = original_browser)
 }
 
+}
+\seealso{
+\code{\link[utils]{browseURL}}
 }

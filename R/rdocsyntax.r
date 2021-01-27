@@ -61,10 +61,12 @@ setup_handlers <- function() {
 #' The browser in use is stored in the \code{browser} option, \code{getOption("browser")}.
 #' This package works by creating a browser function that takes in the R doc html,
 #' applies syntax highlighting, then displays it using the previously set browser, or,
-#' in case RStudio is running, \code{rstudio::viewer}.
+#' in case RStudio is running, \code{\link[rstudioapi]{viewer}}.
 #'
 #' @return
 #' The original browser
+#'
+#' @seealso \code{\link[utils]{browseURL}}
 #'
 #' @examples
 #'
