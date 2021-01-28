@@ -26,7 +26,6 @@ const highlightCode = codeBlocks => {
   codeBlocks.forEach(code => {
     highlight(code, {
       mode: "ace/mode/r",
-      theme: null,
       showGutter: false,
       trim: true
     }, _highlighted => { })
@@ -150,9 +149,9 @@ const addRsthemeLink = e => {
 
 const removeIndentGuides = e => {
   const body = e.querySelector("body")
-  const nodes = body.querySelectorAll(".ace_indent-guide")
+  const nodes = [...body.querySelectorAll(".ace_indent-guide")]
 
-  Array(...nodes).forEach(node => {
+  nodes.forEach(node => {
     node.classList.remove("ace_indent-guide")
   })
 }
@@ -167,6 +166,21 @@ const addDarkThemeStyle = (e, dark) => {
       node.textContent = rstudioDarkStyles
 
       head.appendChild(node)
+    }
+  })
+}
+
+
+const handleExternalLinks = e => {
+  const anchors = [...e.querySelectorAll("a")]
+
+  anchors.forEach(a => {
+    const href = a.getAttribute("href")
+
+    // https://github.com/rstudio/rstudio/blob/5ceee580ed6f632cdcc68f5978545e0b23a5a704/src/gwt/src/org/rstudio/studio/client/workbench/views/help/HelpPane.java#L348
+    if (href.includes(":") || href.endsWith(".pdf")) {
+      a.setAttribute("target", "_blank")
+      a.setAttribute("rel", "noopener noreferrer")
     }
   })
 }
@@ -197,6 +211,7 @@ frame.addEventListener("load", e => {
     () => { highlightCode(codeBlocks) },
     () => { removeIndentGuides(d) },
     () => { setRCSS(d) },
-    () => { addRsthemeLink(d) }
+    () => { addRsthemeLink(d) },
+    () => handleExternalLinks(d)
   ).forEach(yolo)
 })
