@@ -1,3 +1,4 @@
+# https://github.com/rstudio/rstudio/blob/ddcd7191ec89c4da00e77afae7e9f27e61e87c36/src/cpp/session/modules/SessionThemes.R#L724
 rs_getThemeName <- function(themeLines, fileName) {
   tmThemeNameRegex <- "<key>name</key>\\s*<string>([^>]*)</string>"
   rsthemeNameRegex <- "rs-theme-name\\s*:\\s*([^\\*]+?)\\s*(?:\\*|$)"
