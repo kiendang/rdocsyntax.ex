@@ -14,7 +14,7 @@ const singleLineNotRunRegex = /(?<=^[^\S\n\r]*##[^\S\n\r]+Not run:)[^\S\n\r]+/gm
 
 const addLineBreakNotRun = s => s.replace(singleLineNotRunRegex, "\n")
 
-const getCodeBlocks = e => [...e.querySelectorAll("pre")]
+const getCodeBlocks = d => [...d.querySelectorAll("pre")]
 
 const handleSingleLineNotRun = codeBlocks => {
   codeBlocks.forEach(code => {
@@ -33,8 +33,8 @@ const highlightCode = codeBlocks => {
 }
 
 
-const setRCSS = e => {
-  const links = [...e.querySelectorAll("head link")]
+const setRCSS = d => {
+  const links = [...d.querySelectorAll("head link")]
 
   links
     .filter(node => node.getAttribute("href").endsWith("R.css"))
@@ -44,8 +44,8 @@ const setRCSS = e => {
 }
 
 
-const setMainTitle = e => {
-  const title = e.querySelector("head title")
+const setMainTitle = d => {
+  const title = d.querySelector("head title")
   const mainTitle = document.querySelector("title#rdocsyntax-main-title")
 
   mainTitle.textContent = title.textContent
@@ -54,8 +54,8 @@ const setMainTitle = e => {
 
 const bodyClasses = ["rstudio-themes-flat", "ace_editor_theme"]
 
-const setBodyClasses = e => {
-  const body = e.querySelector("body")
+const setBodyClasses = d => {
+  const body = d.querySelector("body")
 
   bodyClasses.forEach(cls => body.classList.add(cls))
 }
@@ -81,8 +81,8 @@ const getOS = response => {
   return platforms.includes(trimmed) ? trimmed : defaultPlatfrom
 }
 
-const setOS = (e, info) => {
-  const body = e.querySelector("body")
+const setOS = (d, info) => {
+  const body = d.querySelector("body")
 
   info
     .then(getOS)
@@ -117,8 +117,8 @@ const darkLightThemeClasses = dark => (
   dark ? darkThemeClasses : lightThemeClasses
 )
 
-const setDarkLightThemeClasses = (e, dark) => {
-  const body = e.querySelector("body")
+const setDarkLightThemeClasses = (d, dark) => {
+  const body = d.querySelector("body")
 
   dark
     .then(darkLightThemeClasses)
@@ -140,13 +140,13 @@ const rsthemeLink = (d => {
   return link
 })(document)
 
-const addRsthemeLink = e => {
-  e.querySelector("body").appendChild(rsthemeLink)
+const addRsthemeLink = d => {
+  d.querySelector("body").appendChild(rsthemeLink)
 }
 
 
-const removeIndentGuides = e => {
-  const body = e.querySelector("body")
+const removeIndentGuides = d => {
+  const body = d.querySelector("body")
   const nodes = [...body.querySelectorAll(".ace_indent-guide")]
 
   nodes.forEach(node => {
@@ -162,15 +162,15 @@ const rstudioDarkStylesNode = (d => {
   return node
 })(document)
 
-const addDarkThemeStyle = (e, dark) => {
+const addDarkThemeStyle = (d, dark) => {
   dark.then(dark => {
-    if (dark) { e.querySelector("head").appendChild(rstudioDarkStylesNode) }
+    if (dark) { d.querySelector("head").appendChild(rstudioDarkStylesNode) }
   })
 }
 
 
-const handleExternalLinks = e => {
-  const anchors = [...e.querySelectorAll("a")]
+const handleExternalLinks = d => {
+  const anchors = [...d.querySelectorAll("a")]
 
   anchors.forEach(a => {
     const href = a.getAttribute("href")
@@ -194,9 +194,7 @@ const info = getInfo()
 const dark = isDarkPromise(info)
 
 
-frame.addEventListener("load", e => {
-  const d = e.currentTarget.contentDocument
-
+const runEverything = d => {
   const codeBlocks = getCodeBlocks(d)
 
   Array(
@@ -212,4 +210,9 @@ frame.addEventListener("load", e => {
     () => { addRsthemeLink(d) },
     () => handleExternalLinks(d)
   ).forEach(yolo)
+}
+
+
+frame.addEventListener("load", e => {
+  runEverything(e.currentTarget.contentDocument)
 })
