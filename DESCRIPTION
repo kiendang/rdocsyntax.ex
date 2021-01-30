@@ -1,7 +1,7 @@
 Package: rdocsyntax
 Type: Package
 Title: Syntax Highlighting for R HTML Documentation
-Version: 0.6.3
+Version: 0.6.3.9999
 Authors@R: person("Trung Kien", "Dang", email = "mail@kien.ai", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-7562-6495"))
 Description: Provides syntax highlighting for R HTML documentation.
 Depends:
