@@ -10,13 +10,13 @@ doc_handler <- function(endpoint, path, query, ...) {
 
 assets_handler <- function(endpoint, path, ...) {
   regexp <- paste0("^/custom/", esp_regex(endpoint), "/+(.*)$")
-  filename <- sub(regexp, "\\1", path)
-  files <- list.files(assets_path(), pattern = filename, full.names = TRUE)
-  if (length(files) <= 0) {
-    error_response(404, sprintf("file \"%s\" not found", filename))
-  } else {
-    f <- files[1]
+  file_path <- sub(regexp, "\\1", path)
+  f <- file.path(assets_path(), file_path)
+
+  if (file.exists(f)) {
     list(file = f, "content-type" = mime::guess_type(f))
+  } else {
+    error_response(404, sprintf("file \"%s\" not found", file_path))
   }
 }
 
