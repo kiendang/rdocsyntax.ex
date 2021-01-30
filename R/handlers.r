@@ -14,7 +14,7 @@ assets_handler <- function(endpoint, path, ...) {
   assets <- system.file("www", "assets", package = packageName())
   files <- list.files(assets, pattern = filename, full.names = TRUE)
   if (length(files) <= 0) {
-    error_page(sprintf("asset %s not found", filename))
+    error_response(404, sprintf("file \"%s\" not found", filename))
   } else {
     f <- files[1]
     list(file = f, "content-type" = mime::guess_type(f))

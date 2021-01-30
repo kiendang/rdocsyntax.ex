@@ -69,13 +69,22 @@ start_httpd <- function() {
 }
 
 
-error_page <- function(msg) {
-  list(payload = paste0(tools::HTMLheader("httpd error"), msg, "\n</body></html>"))
-}
-
-
 browser_f <- function(br) {
   if (is.function(br)) br else {
     function(url) browseURL(url, browser = br)
   }
+}
+
+
+error_response <- function(status_code, msg) {
+  payload <- list(
+    error = unbox(msg)
+  )
+
+  list(
+    payload = toJSON(payload),
+    "content-type" = "text/json",
+    headers = NULL,
+    "status code" = status_code
+  )
 }
