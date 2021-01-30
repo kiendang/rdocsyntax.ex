@@ -24,11 +24,12 @@ module.exports = {
   entry: './srcjs/index.js',
 
   output: {
-    path: path.resolve(__dirname, 'inst')
+    path: path.resolve(__dirname, 'inst', 'www', 'assets')
   },
 
   plugins: [new webpack.ProgressPlugin(), new HtmlWebpackPlugin({
-    template: './srcjs/index.html'
+    template: './srcjs/template.html',
+    filename: 'template.html'
   }), new ScriptExtHtmlWebpackPlugin({
     inline: [/\.js$/]
   })],

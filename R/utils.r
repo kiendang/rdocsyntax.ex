@@ -71,3 +71,13 @@ filter_view_pane_query <- function(query) {
 process_query <- function(query) {
   query_to_s(filter_view_pane_query(query))
 }
+
+
+assets_path <- function() {
+  system.file("www", "assets", package = packageName())
+}
+
+
+template_file <- function() {
+  file.path(assets_path(), "template.html")
+}

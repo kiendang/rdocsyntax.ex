@@ -11,8 +11,7 @@ doc_handler <- function(endpoint, path, query, ...) {
 assets_handler <- function(endpoint, path, ...) {
   regexp <- paste0("^/custom/", esp_regex(endpoint), "/+(.*)$")
   filename <- sub(regexp, "\\1", path)
-  assets <- system.file("www", "assets", package = packageName())
-  files <- list.files(assets, pattern = filename, full.names = TRUE)
+  files <- list.files(assets_path(), pattern = filename, full.names = TRUE)
   if (length(files) <= 0) {
     error_response(404, sprintf("file \"%s\" not found", filename))
   } else {
