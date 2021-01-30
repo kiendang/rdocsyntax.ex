@@ -8,7 +8,7 @@
 
 
 highlight_doc <- function(url) {
-  template <- read_text(template_file())
+  # template <- read_text(template_file())
 
   # use localhost so that this can be opened in the Viewer pane using rstudio::viewer
   localhost_url <- sub(esp_regex("127.0.0.1"), "localhost", url)
