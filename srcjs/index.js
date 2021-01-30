@@ -131,19 +131,17 @@ const setDarkLightThemeClasses = (e, dark) => {
 }
 
 
-const rsthemeLink = () => {
-  const link = document.createElement("link")
+const rsthemeLink = (d => {
+  const link = d.createElement("link")
   link.setAttribute("type", "text/css")
   link.setAttribute("rel", "stylesheet")
-  link.setAttribute("id", "rstudio-acethemes-linkelement")
   link.setAttribute("href", "/custom/rdocsyntax-rstheme")
 
   return link
-}
+})(document)
 
 const addRsthemeLink = e => {
-  const body = e.querySelector("body")
-  body.appendChild(rsthemeLink())
+  e.querySelector("body").appendChild(rsthemeLink)
 }
 
 
@@ -157,16 +155,16 @@ const removeIndentGuides = e => {
 }
 
 
+const rstudioDarkStylesNode = (d => {
+  const node = document.createElement("style")
+  node.textContent = rstudioDarkStyles
+
+  return node
+})(document)
+
 const addDarkThemeStyle = (e, dark) => {
   dark.then(dark => {
-    if (dark) {
-      const head = e.querySelector("head")
-
-      const node = document.createElement("style")
-      node.textContent = rstudioDarkStyles
-
-      head.appendChild(node)
-    }
+    if (dark) { e.querySelector("head").appendChild(rstudioDarkStylesNode) }
   })
 }
 
