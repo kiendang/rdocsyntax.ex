@@ -51,19 +51,12 @@ setup_handlers <- function() {
 
 #' Enable syntax highlighting in R html doc
 #'
-#' @param set_html_help_type
-#' Automatically set the \code{help_type} option to \code{html},
-#' i.e. \code{options(help_type = "html")}. Default is \code{FALSE}.
-#'
 #' @details
 #' R html docs are displayed by running the doc url through a browser function.
 #' The browser in use is stored in the \code{browser} option, \code{getOption("browser")}.
 #' This package works by creating a browser function that takes in the R doc html,
 #' applies syntax highlighting, then displays it using the previously set browser, or,
 #' in case RStudio is running, \code{\link[rstudioapi]{viewer}}.
-#'
-#' @return
-#' The original browser
 #'
 #' @seealso \code{\link[utils]{browseURL}}
 #'
@@ -73,42 +66,39 @@ setup_handlers <- function() {
 #' # minimal example, using RStudio
 #' # original R html doc without syntax highlighting
 #' ?sapply
+#'
 #' # enable syntax highlighting
-#' enable_html_doc_highlight()
-#' ?sapply
-#' }
+#' highlight_html_docs()
 #'
-#' \dontrun{
-#' # this works if not using RStudio
-#' # set html doc, alternatively can use help(..., help_type = "html")
-#' options(help_type = "html")
-#' # original R html doc without syntax highlighting
+#' # Code in HTML documents is now highlighted
 #' ?sapply
-#' # enable syntax highlighting
-#' enable_html_doc_highlight()
-#' ?sapply
-#' }
+#' # or if help pages are not displayed in HTML mode by default,
+#' # e.g. when R is not running inside RStudio
+#' help(sapply, help_type = "html")
 #'
-#' \dontrun{
-#' # in case you want to be able switch off syntax highlighting,
-#' # i.e. revert to original state
-#'
-#' # store the original browser
-#' original_browser <- enable_html_doc_highlight()
-#' # revert to the original browser
-#' options(browser = original_browser)
+#' #' # Disable syntax highlighting
+#' unhighlight_html_docs()
 #' }
 #'
 #' @export
-enable_html_doc_highlight <- function(set_html_help_type = FALSE) {
+highlight_html_docs <- function() {
   setup_handlers()
   start_httpd()
 
-  if (set_html_help_type) {
-    options(help_type = "html")
-  }
-
-  original_browser <- getOption("browser")
+  original_browser <- get_original_browser()
   options(browser = highlight_browser(original_browser))
-  invisible(original_browser)
+}
+
+
+#' Disable HTML documentation syntax highlighting
+#'
+#' @description
+#' Revert to the original help server for handling HTML documentation.
+#'
+#' @seealso \code{\link{highlight_html_docs}}
+#'
+#' @export
+unhighlight_html_docs <- function() {
+  options(browser = get_original_browser())
+  assignInMyNamespace("original_browser", NULL)
 }

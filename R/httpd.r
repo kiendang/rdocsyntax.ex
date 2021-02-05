@@ -1,3 +1,16 @@
+original_browser <- NULL
+
+
+get_original_browser <- function() {
+  if (is.null(original_browser)) {
+    assignInMyNamespace("original_browser", getOption("browser"))
+  }
+
+  original_browser
+}
+
+
+
 httpd_origin <- function() {
   paste0("http://localhost:", startDynamicHelp(NA))
 }
@@ -55,7 +68,7 @@ add_handler <- function(endpoint, handler, env = httpd_handlers_env()) {
 
 
 endpoint_prefix <- function() {
-  tolower(paste0(packageName(), "-"))
+  tolower(paste0("rdocsyntax", "-"))
 }
 
 
